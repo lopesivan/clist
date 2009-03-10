@@ -1,0 +1,300 @@
+================================================================================
+CList - Circular C++ List Class
+(C) 2003-2007 Kevin P. Barry
+
+    0.9.0 - *Initial Release*           [ 08 May 2005 ]
+        This version has been tested to death by my over the last few years.  It
+        has changed quite a bit; most of the algorithms (to include the Circular
+        Linear Merge Sort algorithm and the preprocessing sort functions that go
+        with it) are a result of me trying to get persistent ideas out of my
+        system.  I don't know of any bugs at the moment, although I can't
+        possibly test it in every situation.  I've gone with months of basic
+        code analysis along with abusing its implementation in any way I could
+        to try to break it.  Hopefully that is enough to warrant a non-alpha
+        initial release.  Most of the functionality results from using this
+        class as a fundamental part of another yet-to-be release project.  If
+        you follow the directions, it should work just fine.  Please let me know
+        of any bugs at ta0kira@users.sourceforge.net.  Thanks for trying it out.
+
+    0.9.2 - *Second Release*            [ 16 May 2005 ]
+        I've added 'shadow list' support files to make creating and using
+        'shadow lists' easier.  Support includes: creating blank shadows and
+        binding a shadow to the original list (and optional functor) so that
+        you can find data in the original list based on the shadow.  This is
+        useful for when you have a const original list; you make a shadow sorted
+        based on the original list, then you can bind it to the original to find
+        something in a sorted version of the list.
+
+    0.10.0 - *Version 0.10*             [ 30 May 2005 ]
+        The largest change made with this version was converting the handling of
+        functors from unary to binary for other-than element-adding functions.
+        This in-turn caused the static functions in 'KeyList' to diverge into
+        sort and find versions of each, and also required the 'shadow binding'
+        classes/functions to diverge.  Since I changed the 'shadow binding', I
+        decided I might as well give the functions more appropriate names.  Some
+        minor changes include converting all text/source files to UNIX format
+        for consistency, reformatting and clarifying examples, and updating the
+        tutorial for clarity and to incorporate the other changes.  Incidental
+        to the conversion of functor handling to binary for sorting, I removed
+        the 'FunctorPreProcess' flag because with a binary functor we cannot
+        pre-calculate the functor results.  In the .hpp file, the functions that
+        take unary functors use template argument 'Function1' and those that
+        take binary functors use template argument 'Function2'.
+
+    0.12.0 - *Version 0.12*             [ 14 July 2005 ]
+        The major changes for this release were making the non-functor find
+        functions take a template type for the find reference, and making all
+        find functions (to include the remove/keep element functions) take const
+        references as arguments.  Additionally, arguments for adding/inserting
+        and replacing elements were changed to templates as well, and also take
+        constant references as arguments.  The exception to this is operator =,
+        which now takes a const ASSIGN_TYPE, which is the same literal type,
+        however this was changed to allow removal of the typedef ARG_TYPE.  The
+        typedef ARG_TYPE was removed from ListTypes as well as CList and
+        KeyList, and this incidentally resulted in the constructor for Associate
+        and KeyList::NewElement to become templates.  THE ABILITY TO HAVE A
+        REFERENCE QUALIFIER HAS BEEN REMOVED BECAUSE IT NO LONGER SERVES ANY
+        PURPOSE.  This was removed because 1) I don't foresee any significant
+        use for it anytime soon, 2) rather than making something up for it to be
+        used for, I'd rather take it out and add it back in if I find a useful
+        purpose for it, and 3) since I am still releasing under the 0.x series,
+        this is an appropriate time for significant changes like this.  I've
+        also chosen to remove the typedef ITERATOR_TYPE because it served no
+        purpose whatsoever; it was still there from an unreleased version of the
+        lib.  The external arithmetic assignment operators and INVERTED_SHIFT
+        were changed to take template const reference arguments, also.  The
+        typedef PosContainer was made protected because its only use is for the
+        FIND_D functions, which are protected.  Lastly, I've added a functor
+        version for the iterator begin->end add/insert functions (always felt
+        like those had been left out).
+
+    0.12.1 - *Version 0.12*             [ 25 October 2005 ]
+        This update is mostly a documentation update, a few bug fixes, and some
+        cleaning up.  In the documentation folder, I added a function table for
+        easy reference.  I moved the iterator range add and insert functions in
+        CList with the related add and insert functions.  I revised a few
+        incorrect source code comments.  I removed the Index and Clear functions
+        from IndexManager since they are not needed.  I moved the Reset function
+        in CList with the other size and capacity related functions.  I made
+        minor changes to the IndexManager AtMax and AtEnd functions.  I added a
+        const static member to CList to denote the number of flags in order to
+        make future maintenance easier.  I updated the .hpp files so that they
+        all use the same namespace as LIST.hpp, making a future change easier.
+        I made a few fixes and clarifications in the sort example.  I fixed an
+        error in the temporary functor returned by BindFindShadow.  I changed
+        the element type taken for the element assignment operator to
+        CONST_RETURN_TYPE (caused malfunction with ASSIGN_TYPE).  Made shadow
+        binding global functions inline.
+
+    0.12.2 - *Version 0.12*             [ 31 December 2005 ]
+        This release contains quite a bit of documentation changes.  First of
+        all, I converted the entire tutorial and overview to HTML, and I also
+        wrote a brief overview of shadows.  Along with converting the tutorial,
+        I cleaned up an IMMENSE amount of wording; the tutorial is now much more
+        concise and clear.  I also reworded a few of the concepts so that they
+        are easier to understand.
+
+        In addition to documentation, I fixed a few errors that I'm not sure how
+        I missed.  The most important was when I converted to binary functors in
+        0.10.0, I forgot that 'FRemoveDuplicates' requires both 'less-than' and
+        'equal-to' comparisons.  I added a second functor argument to this
+        function as a result.  Incidentally, I had to do the same to 'FFIND_D',
+        as well as change two lines of code in the function to use the correct
+        functor.  Just to keep myself honest, I added a few lines to the sort
+        example covering this function.  Another incidental addition was adding
+        two new static functions to 'KeyList'; I added 'FIND_DUP_KEY' and
+        'FIND_DUP_VALUE' to use in 'FRemoveDuplicates'.  I fixed a small error
+        in the display of a shadow binding demo in the sort example.  I removed
+        the comment in LIST_TYPES.hpp pertaining to reference types.  I made
+        'Index.AtBegin()' return false if the list has no elements.  I  fixed
+        the DELTA function, which looked like it shouldn't work from the inside
+        of the function.  I clarified the example using 'DELTA' in the general
+        example.
+
+    0.12.4 - *Version 0.12*             [ 26 February 2006 ]
+        This release contains a few items I "left behind" with the last release.
+        I added a global function 'BindDupShadow' for use with finding duplicate
+        elements.  Incidentally, I had to split up 'ShadowBinder' into three
+        independent classes ('ShadowSortBinder', 'ShadowFindBinder', and
+        'ShadowDupBinder'.)  I also had to split up 'FBindShadow' into two
+        separate functions; one for internal element comparisons, and one for
+        comparison of elements with an external reference ('FBindInternShadow'
+        and 'FBindExternShadow'.)  I also had to split up 'FunctorShadowBinder'
+        into 'FShadowInternBinder' and 'FShadowExternBinder'.  I updated the
+        tutorial and examples to account for these changes.
+
+    0.12.5 - *Version 0.12*             [ 09 April 2006 ]
+        This release contains a few small improvements and a few small changes
+        that no one will notice but me.  In 0.12.1 I changed the return value of
+        'Index.AtMax()' when the max is 0; I've fixed this so that the function
+        will always return 'false' if the max is 0 (i.e. unlimited.)  I revised
+        the size check in 'Decrement' to 'Index.Size() < sSize' to avoid a
+        negative 'unsigned' value.  I went through and fixed as many compiler
+        warnings as I could.  I added increment and decrement operators to
+        to 'CList' which just mirror the 'Index' functions.  I added a constant
+        'NOT_FOUND' to standardize the returns of find functions.  I removed
+        'LIST_TYPES.cpp'; it didn't have a purpose.  I removed the
+        'LIST_TYPES.hpp' include in 'OTHER_LISTS.hpp'.  I added a check for the
+        'CLIST_SEPARATE_INDEX' in 'LIST.cpp'; this bypasses the inclusion of
+        'INDEX.cpp' if you want to compile it separately (just define the macro
+        on the command line.)  To compile 'INDEX', use the newly-added
+        'CListIndex.cpp'.  This is intended to allow compilation of multiple
+        units which use 'CList' and will be linked together; this will prevent
+        "multiple definition" errors.  I changed the definition of 'INDEX_HPP'
+        from 'LIST_HPP' to 'BC' in case 'INDEX' is compiled separately.  I added
+        the 'ListShadow' typedef to 'SHADOW_LIST.hpp'.  In global function
+        'SIGMA', I removed the return statement for no elements; the 'First'
+        call will return the default value anyway if there are no elements.  I
+        added a call to 'NewMax' in 'CreateBlankShadow' to make blank shadows
+        unlimited in size by default.
+
+    1.0.0 - *Version 1.0*               [ 18 March 2007 ]
+        This is the first standardized release.  It contains a full rewrite of
+        of symbol names and header structure and is not compatible with any
+        previous version.  It includes the addition of the 'switch_elements'
+        function, the integration of the index class into 'clist' (new name for
+        'CList') to prevent multiple function references at link time, and the
+        addition of 'virtual array storage'.  The VAS is for larger elements and
+        manages them as pointers instead of objects to cut down on full object
+        copying when moving elements around.  This has not fully been tested,
+        but it should be nearly bug-free.  Because of the extent of name changes
+        required, I used a shell script with lists of changes to make.  I
+        haven't fully had a chance to check for mistakes, however the only ones
+        remaining should be in comments or inert text.  In the future, I plan to
+        create several FULL tests which force the compilation of all functions
+        for the different possible variants (i.e. const and/or VAS.)  I made the
+        element creation functions of 'keylist' (formerly 'KeyList') return a
+        const reference to cut down on copying of the return.  Lastly, I've
+        integrated the headers into a single include and merged the two
+        package versions.
+
+    1.0.1 - *Version 1.0*               [ 23 March 2007 ]
+        Fixed up a problem with VAS enabling.  Created a test program to force
+        compilation of all functions (still need to implement several
+        categories.)  Made a few fixes as a result of the test program.  I added
+        several operators.
+
+    1.1.0 - *Version 1.1*               [ 24 March 2007 ]
+        Added 'clist_f_sigma', 'bind_convert_shadow' and
+        'f_bind_convert_shadow' global functions.  Fixed duplicate removal.
+        Added ranges to find functions and removed '*_from' functions.  Made
+        'remove_pattern'/'keep_pattern' functions take ranges.  Completed
+        more test modules (4 done, 6 remaining.)  Added range arguments to
+        'clist_sigma' and 'clist_delta'.  Revised internal iterator/object
+        wrapping for sorting/ordering.  Removed 'o_cross_find' flag.  Made
+        'o_reverse_find' immutable like the other flags.
+
+    1.1.2 - *Version 1.1*               [ 25 March 2007 ]
+        Complete overhaul of VAS.  Additional optimizations and code cleansing.
+        Removal of the 'o_iterator_process' option; this method is now used for
+        VAS only when transposing.  Updated the VAS factors after profiling
+        sorting with various sized objects.  Added a few key lines to the sort
+        example to test a few additional functions.
+
+    1.1.3 - *Version 1.1*               [ 25 March 2007 ]
+        Minor fix to make transposing with VAS significantly faster.
+
+    1.1.4 - *Version 1.1*               [ 25 March 2007 ]
+        Minor changes to iterator handling to allow for STLs that don't use
+        contiguous memory for allocating elements.  Added a few more global
+        comparison operators.
+
+    1.1.5 - *Version 1.1*               [ 25 March 2007 ]
+        Fixed an issue with the VAS iterators (doesn't affect any current code.)
+        Added 'f_bind_convert_output' to bind a list to a functor for output.
+        Added a 'std::ostream' 'operator <<' for the result of that function.
+        Added 'bind_range_output' function to restrict output range (also with
+        a corresponding output operator.)  Added clist variants to the find
+        functions which store element positions in a clist.  Added 'f_bind_
+        format_output' to bind a format functor to a list for output (also with
+        an output operator.)  Added 'f_bind_convert_format_output', etc.
+        comparison operators.
+
+    1.1.6 - *Release 1.1*               [ 26 March 2007 ]
+        Changed VAS implementation for 'keylist' so that if either of the types
+        it contains are VAS-enabled so will the 'keylist'.  If the associated
+        element type is VAS-enabled then the list will also use VAS.  Locked
+        down all internal classes to deny access to outside users.  Cleaned up
+        headers.  Default 'VIRT_ARRAY_FACTOR' changed back to 2 for all.  Added
+        a simple GNU profiler program specifically for CList profiling.  Added
+        operators '*' and '->' to dereference the current element.  Added
+        evaluation functor matching for removing/keeping/finding.
+
+    1.1.7 - *Release 1.1*               [ 08 June 2007 ]
+        Corrected element removal functions to allow pointer validity after the
+        removal of other elements.  This involved adding a few new functions to
+        the storage containers and privately to 'clist'.
+
+    1.1.8 - *Release 1.1*               [ 22 October 2007 ]
+        Made change in 'f_find_duplicates' (internal function) which prevented
+        calls to 'f_remove_duplicates' from compiling.
+
+    1.4.0 - *Release 1.4*               [ Rescinded ]
+        Fixed a problem with removing duplicate elements with functors.
+        Replaced internal sorting algorithm and sorting logic.  Revised internal
+        data representation slightly to be more transparent to support the new
+        algorithm.  The algorithm change allows sorting and data operations
+        without allocation of temporary arrays which improves performance by
+        several times.  Removed 'mutable' qualifier for 'index', requiring
+        removal of several 'const' functions (certain "hold" and "previous/next"
+        functions.)  Made the default return element static to reduce list
+        object size.  Made ranges exclude the last element in a range to mirror
+        most range implementations (i.e. "[first, last)".)  Made 'index' a true
+        offset point for all list operations.  This effects all positional list
+        values with the exception of "first" and "last" functions, which still
+        return the absolute first and last elements of the list.  The current
+        index determines the apparent beginning of the list for all purposes
+        other than the "first" and "last" functions and the value of 'index'.
+        Added 'keep_only_duplicated' and 'f_keep_only_duplicated', which are
+        identical to their "remove duplicates" counterparts except they don't
+        keep any value which has not been duplicated.
+
+    1.5.0 - *Release 1.5*               [ 22 February 2008 ]
+        Upon release of 1.4.0, I realized that the replacement sorting algorithm
+        had a serious performance flaw.  It sorted data, but at an exponentially
+        slower rate as the size grew.  This release contains all of the changes
+        made with 1.4.0 but reverting the sorting algorithm back to CLM sort.
+        The current algorithm performs slower than std::stable_sort when not
+        using optimization or VAS, but is necessary for circular sorting as well
+        as VAS support (which is significantly faster than std::stable_sort when
+        sorting large elements.)
+
+    1.5.2 - *Release 1.5*               [ 26 October 2008 ]
+        Optimized the storage used with VAS and limited-size lists.  CList will
+        allocate all elements up front with limited-size lists, but now with VAS
+        the allocation will only be for pointers; the element allocation only
+        takes place when the element is used.  This reduces up-front memory
+        requirements and should generally improve performance.
+
+    1.5.3 - *Release 1.5*               [ 11 February 2009 ]
+        This release contains a fix to the 'fe_find*' functions.  Previously,
+        they wouldn't take the current index into account and would therefore
+        return the incorrect positional values if the index was non-zero.
+
+    1.5.4 - *Release 1.5*               [ 08 March 2009 ]
+        This release contains a few additional functions and a fix to
+        'f_bind_convert_shadow'.  'clist' now has the 'keep_all_duplicated' and
+        'keep_only_duplicates' functions, plus functor counterparts for both.
+        'keep_all_duplicated' is similar to 'keep_only_duplicated', except all
+        occurrences of the duplicate values are kept.  In other words, all
+        elements that aren't duplicated are removed.  'keep_only_duplicates' is
+        the same as 'keep_all_duplicated', except the first occurrence of the
+        duplicated values are removed, also.  'keep_only_duplicates' and
+        'remove_duplicates' called on separate copies of the same list should
+        therefore contain exactly the same elements as the original list.  The
+        'f_bind_convert_shadow' functor-binding function had differing
+        signatures between the declaration and definition, which is now
+        corrected.
+
+    1.5.5 - *Release 1.5*               [ 09 March 2009 ]
+        Added the 'remove_all_duplicated' function, which results in only
+        completely-unique elements being kept.
+
+    1.5.6 - *Release 1.5*               [ ??? ]
+        Added the 'f_set_group' and 'f_check_group' functions.  These functions
+        evaluate each element in a range with a unary functor.  The first can
+        modify the elements if they aren't 'const'-qualified.  Renamed the
+        'clist_f_sigma' function to 'f_clist_sigma' for consistency.
+
+Kevin P. Barry
+================================================================================

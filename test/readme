@@ -1,0 +1,6 @@
+To run the test program you need GNU 'make' and 'gcc'.  To run, type:
+
+	make
+
+This will generate the file 'clist_test.log' which will show the results of the
+tests.  You should not see any FAILs.

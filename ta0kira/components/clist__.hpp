@@ -1804,7 +1804,7 @@ private:
 #ifdef RSERVR_CLIST_HACKS
   template <class Type> bool
   clist <Type> ::transfer_element(const typename internal_container::interim_type &nNew)
-    //Transfer ownership of an element
+  //Transfer ownership of an element
   {
   if (!partial_increment_size(1, false)) return false;
   *list_element(short_modulo(last)) = nNew;

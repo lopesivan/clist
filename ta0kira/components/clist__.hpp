@@ -1547,7 +1547,7 @@ private:
     //..........................................................................
 
     //Pre-sorting functions.....................................................
-    typedef typename list_container <n_shell <int> > ::type
+    typedef typename list_container <n_shell <int> > ::container_type
       transposer_container;
     //Container for storing transposing positions
 
@@ -1589,7 +1589,7 @@ protected:
       f_find_duplicates: functor version of find_duplicates.
      *____________________________________________________________________*/
 
-    typedef typename list_container <int> ::type position_container;
+    typedef typename list_container <int> ::container_type position_container;
     //Position container
 
         unsigned int
@@ -3186,7 +3186,7 @@ private:
   int S1, S2, SIZE = set_range(S1, S2, sStart, sStop);
   if (SIZE < 2) return *this;
 
-  typename list_container <n_shell <int> > ::type Temp;
+  typename list_container <n_shell <int> > ::container_type Temp;
   if (!check_capacity(Temp, SIZE)) return *this;
   Temp.resize(SIZE);
 
@@ -3860,7 +3860,7 @@ private:
   {
   int DataSize = sStop - sStart, TotalSize = lListEnd - lListBegin;
 
-  typename list_container <typename std::iterator_traits <Iterator2> ::value_type> ::type Temp;
+  typename list_container <typename std::iterator_traits <Iterator2> ::value_type> ::container_type Temp;
   if (!check_capacity(Temp, DataSize)) return;
   Temp.resize(DataSize);
 
@@ -4065,7 +4065,7 @@ private:
   {
   int DataSize = sStop - sStart, TotalSize = lListEnd - lListBegin;
 
-  typename list_container <typename std::iterator_traits <Iterator2> ::value_type> ::type Temp;
+  typename list_container <typename std::iterator_traits <Iterator2> ::value_type> ::container_type Temp;
   if (!check_capacity(Temp, DataSize)) return;
   Temp.resize(DataSize);
 
@@ -4379,8 +4379,8 @@ private:
   int Size = eEnd - bBegin;
   if (!Size) return true;
 
-  typename list_container <IShell> ::type I_Temp;
-  typename list_container <Shell> ::type  Temp;
+  typename list_container <IShell> ::container_type I_Temp;
+  typename list_container <Shell> ::container_type  Temp;
 
   if (iIter)
   //If we are sorting iterators we resize the iterator containers...
@@ -4488,8 +4488,8 @@ private:
   int Size = eEnd - bBegin;
   if (!Size) return true;
 
-  typename list_container <IShell> ::type I_Temp;
-  typename list_container <Shell> ::type  Temp;
+  typename list_container <IShell> ::container_type I_Temp;
+  typename list_container <Shell> ::container_type  Temp;
 
   if (iIter)
    {
@@ -4598,7 +4598,7 @@ private:
   int SIZE = set_range(S1, S2, sStart, sStop);
   if (S2 == S1) return 0;
 
-  typename list_container <d_shell_type> ::type Temp;
+  typename list_container <d_shell_type> ::container_type Temp;
 
   if (!check_capacity(Temp, SIZE)) return 0;
   Temp.resize(SIZE);
@@ -4658,7 +4658,7 @@ private:
   int SIZE = set_range(S1, S2, sStart, sStop);
   if (S2 == S1) return 0;
 
-  typename list_container <d_shell_type> ::type Temp;
+  typename list_container <d_shell_type> ::container_type Temp;
 
   if (!check_capacity(Temp, SIZE)) return 0;
   Temp.resize(SIZE);
@@ -4726,7 +4726,7 @@ private:
   while (Write < NewSize)
    {
 
-  while (Read == pPos[Remove])
+  while (Remove < sSize && Read == pPos[Remove])
     {
   if (pPos[Remove] < index) Offset++;
   if (++Read >= SIZE) break;

@@ -34,6 +34,16 @@
 #ifndef CLIST_CONTAINER_TYPE
 #define CLIST_CONTAINER_TYPE( type ) std::vector < type >
 #include <vector>
+#else
+
+#ifdef CLIST_CONTAINER_INCLUDE
+#include CLIST_CONTAINER_INCLUDE
+#endif
+
+#ifdef CLIST_ALLOCATOR_INCLUDE
+#include CLIST_ALLOCATOR_INCLUDE
+#endif
+
 #endif
 //END Definitions_______________________________________________________________
 
@@ -95,7 +105,7 @@ class list_container
     template <class> friend class d_n_shell;
     template <class> friend class vd_n_shell;
 
-    typedef CLIST_CONTAINER_TYPE(Type) type;
+    typedef typename CLIST_CONTAINER_TYPE(Type) container_type;
 
     ~list_container();
 };

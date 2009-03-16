@@ -59,7 +59,7 @@ bool remove_test_internal()
   TEST1.remove_list(VALUES1);
   if (TEST1.size() != TEST2.size() - VALUES1.size()) return false; std::cout << "[1 pass]\n"; std::cout.flush();
   if (data::clist_sigma(TEST1) != data::clist_sigma(TEST2) -
-      data::clist_f_sigma(VALUES1, data::bind_convert_shadow(TEST2, VALUES1)))
+      data::f_clist_sigma(VALUES1, data::bind_convert_shadow(TEST2, VALUES1)))
     return false; std::cout << "[2 pass]\n"; std::cout.flush();
 
 
@@ -71,7 +71,7 @@ bool remove_test_internal()
   TEST1.remove_list(VALUES2, VALUES1.size());
   if (TEST1.size() != TEST2.size() - VALUES1.size()) return false; std::cout << "[1 pass]\n"; std::cout.flush();
   if (data::clist_sigma(TEST1) != data::clist_sigma(TEST2) -
-      data::clist_f_sigma(VALUES1, data::bind_convert_shadow(TEST2, VALUES1)))
+      data::f_clist_sigma(VALUES1, data::bind_convert_shadow(TEST2, VALUES1)))
     return false; std::cout << "[2 pass]\n"; std::cout.flush();
 
 
@@ -146,7 +146,7 @@ bool remove_test_internal()
 
   TEST1.keep_list(VALUES1);
   if (TEST1.size() != VALUES1.size()) return false; std::cout << "[1 pass]\n"; std::cout.flush();
-  if (data::clist_sigma(TEST1) != data::clist_f_sigma(VALUES1, data::bind_convert_shadow(TEST2, VALUES1)))
+  if (data::clist_sigma(TEST1) != data::f_clist_sigma(VALUES1, data::bind_convert_shadow(TEST2, VALUES1)))
     return false; std::cout << "[2 pass]\n"; std::cout.flush();
 
 
@@ -157,7 +157,7 @@ bool remove_test_internal()
 
   TEST1.keep_list(VALUES2, VALUES1.size());
   if (TEST1.size() != VALUES1.size()) return false; std::cout << "[1 pass]\n"; std::cout.flush();
-  if (data::clist_sigma(TEST1) != data::clist_f_sigma(VALUES1, data::bind_convert_shadow(TEST2, VALUES1)))
+  if (data::clist_sigma(TEST1) != data::f_clist_sigma(VALUES1, data::bind_convert_shadow(TEST2, VALUES1)))
     return false; std::cout << "[2 pass]\n"; std::cout.flush();
 
 

@@ -290,11 +290,15 @@ CList - Circular C++ List Class
         Added the 'remove_all_duplicated' function, which results in only
         completely-unique elements being kept.
 
-    1.5.6 - *Release 1.5*               [ ??? ]
+    1.5.6 - *Release 1.5*               [ 11 March 2009 ]
         Added the 'f_set_group' and 'f_check_group' functions.  These functions
         evaluate each element in a range with a unary functor.  The first can
         modify the elements if they aren't 'const'-qualified.  Renamed the
-        'clist_f_sigma' function to 'f_clist_sigma' for consistency.
+        'clist_f_sigma' function to 'f_clist_sigma' for consistency.  Fixed a
+        latent bug in element removal.  Added allocator copying with VAS so that
+        individual elements will use the same allocator template as the list
+        itself.  This allows a custom allocator to be used for the list while
+        having it also apply when VAS is used.
 
 Kevin P. Barry
 ================================================================================

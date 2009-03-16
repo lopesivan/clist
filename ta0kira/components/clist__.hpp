@@ -5077,9 +5077,10 @@ private:
   clist <Type> ::internal_index::list_modulo(int iIndex) const
   //Returns valid array position (for mod of externally provided values)
   {
+  if (iIndex >= 0 && iIndex < size_value) return iIndex;
   if (size_value <= 1) return 0;
-  while (iIndex < 0) iIndex += size_value;
-  return iIndex % size_value;
+  return (iIndex < 0)?
+    (size_value + iIndex % size_value) : (iIndex % size_value);
   }
 
   template <class Type> inline int

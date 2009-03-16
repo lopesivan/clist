@@ -1,9 +1,12 @@
 
  ##############################################################################
  #'CList' test program.                                                       #
- #Copyright (C) 2007 Kevin P. Barry (ta0kira@users.sourceforge.net)           #
+ #Copyright (C) 2009 Kevin P. Barry (ta0kira@users.sourceforge.net)           #
  #Licensed under the GPL.                                                     #
  ##############################################################################
+
+OPTIONS=-g -D'CLIST_CONTAINER_TYPE( type )=std::vector < type, std::allocator < type > >' \
+-D'CLIST_CONTAINER_INCLUDE=<vector>' -D'CLIST_ALLOCATOR_INCLUDE=<memory>'
 
 .PHONY: execute clean
 
@@ -35,7 +38,7 @@ clist_normal:	external.cpp \
 		shadow.cpp \
 		simple.cpp \
 		sort.cpp
-	g++ external.cpp fill.cpp find.cpp invert.cpp main.cpp other.cpp remove.cpp retrieve.cpp shadow.cpp simple.cpp sort.cpp -o clist_normal
+	g++ $(OPTIONS) external.cpp fill.cpp find.cpp invert.cpp main.cpp other.cpp remove.cpp retrieve.cpp shadow.cpp simple.cpp sort.cpp -o clist_normal
 
 clist_no_virt:	external.cpp \
 		fill.cpp \
@@ -48,7 +51,7 @@ clist_no_virt:	external.cpp \
 		shadow.cpp \
 		simple.cpp \
 		sort.cpp
-	g++ -DDISABLE_VIRT_ARRAY_ALL external.cpp fill.cpp find.cpp invert.cpp main.cpp other.cpp remove.cpp retrieve.cpp shadow.cpp simple.cpp sort.cpp -o clist_no_virt
+	g++ $(OPTIONS) -DDISABLE_VIRT_ARRAY_ALL external.cpp fill.cpp find.cpp invert.cpp main.cpp other.cpp remove.cpp retrieve.cpp shadow.cpp simple.cpp sort.cpp -o clist_no_virt
 
 clist_all_virt:	external.cpp \
 		fill.cpp \
@@ -61,7 +64,7 @@ clist_all_virt:	external.cpp \
 		shadow.cpp \
 		simple.cpp \
 		sort.cpp
-	g++ -DENABLE_VIRT_ARRAY_ALL external.cpp fill.cpp find.cpp invert.cpp main.cpp other.cpp remove.cpp retrieve.cpp shadow.cpp simple.cpp sort.cpp -o clist_all_virt
+	g++ $(OPTIONS) -DENABLE_VIRT_ARRAY_ALL external.cpp fill.cpp find.cpp invert.cpp main.cpp other.cpp remove.cpp retrieve.cpp shadow.cpp simple.cpp sort.cpp -o clist_all_virt
 
 clean:
 	rm -fv clist_normal clist_no_virt clist_all_virt clist_test.log *~

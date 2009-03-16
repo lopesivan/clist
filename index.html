@@ -4547,7 +4547,7 @@
             <div>
               <ul>
                 <li>
-                  <strong>CLIST_CONTAINER_TYPE( type )</strong>: define this macro to denote the container type to be used internally by <u>clist</u>. The default is <u>std::vector &#060; type &#062;</u>. <br>
+                  <strong>CLIST_CONTAINER_TYPE( type )</strong>: define this macro to denote the container type to be used internally by <u>clist</u>. The default is <u>std::vector &#060; type &#062;</u>. You might need to define <strong>CLIST_CONTAINER_INCLUDE</strong> with a header if the container type is set on the command line, and optionally <strong>CLIST_ALLOCATOR_INCLUDE</strong> if the allocator isn't in the same file.  Include everything past <strong>#include</strong> for both. When using a custom container, the allocator class used with the container will also be used for individual elements if <a href="#VAS">virtual array storage</a> is used. <br>
                   <br>
                 </li>
                 <li>

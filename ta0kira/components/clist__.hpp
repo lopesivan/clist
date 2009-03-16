@@ -4726,7 +4726,7 @@ private:
   while (Write < NewSize)
    {
 
-  while (Remove < sSize && Read == pPos[Remove])
+  while (Remove < (signed) sSize && Read == (signed) pPos[Remove])
     {
   if (pPos[Remove] < index) Offset++;
   if (++Read >= SIZE) break;

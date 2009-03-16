@@ -300,5 +300,8 @@ CList - Circular C++ List Class
         itself.  This allows a custom allocator to be used for the list while
         having it also apply when VAS is used.
 
+    1.5.7 - *Release 1.5*               [ ??? ]
+        Updated index wrapping to make it more efficient.
+
 Kevin P. Barry
 ================================================================================

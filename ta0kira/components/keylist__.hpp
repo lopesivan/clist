@@ -133,32 +133,42 @@ struct keylist :
     new_element(const Type3&, const Type4&);
     //Create new element
 
-    static
+    static inline
+        const_return_type_1
+    get_key(const element_type&);
+    //Function to return key
+
+    static inline
+        const_return_type_2
+    get_value(const element_type&);
+    //Function to return value
+
+    static inline
         bool
     sort_by_key(const element_type&, const element_type&);
     //Function to sort by key
 
-    static
+    static inline
         bool
     sort_by_value(const element_type&, const element_type&);
     //Function to sort by value
 
-    static
+    static inline
         bool
     find_by_key(const element_type&, const_return_type_1);
     //Function to find by key
 
-    static
+    static inline
         bool
     find_by_value(const element_type&, const_return_type_2);
     //Function to find by value
 
-    static
+    static inline
         bool
     find_dup_key(const element_type&, const element_type&);
     //Function to find duplicate key
 
-    static
+    static inline
         bool
     find_dup_value(const element_type&, const element_type&);
     //Function to find duplicate value
@@ -258,6 +268,14 @@ struct keylist :
   keylist <Type1, Type2> ::new_element(const Type3 &kKey, const Type4 &vVal)
   { return associated_element <Type1, Type2> (kKey, vVal); }
 
+  template <class Type1, class Type2> typename keylist <Type1, Type2> ::const_return_type_1
+  keylist <Type1, Type2> ::get_key(const element_type &eEl)
+  { return eEl.key(); }
+
+  template <class Type1, class Type2> typename keylist <Type1, Type2> ::const_return_type_2
+  keylist <Type1, Type2> ::get_value(const element_type &eEl)
+  { return eEl.value(); }
+
   template <class Type1, class Type2> bool
   keylist <Type1, Type2> ::sort_by_key(const element_type &eEl1,
     const element_type &eEl2)
@@ -292,4 +310,3 @@ struct keylist :
 
 #endif
 //END Source Section############################################################
-

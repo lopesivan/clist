@@ -1,6 +1,6 @@
 /*============================================================================*\
  *clist. Circular list with complex sorting.                                  *
- *Copyright (C) 2009 Kevin P. Barry (ta0kira)                                 *
+ *Copyright (C) 2010 Kevin P. Barry (ta0kira)                                 *
  *                                                                            *
  *This library is free software; you can redistribute it and/or modify it     *
  *under the terms of the GNU Lesser General Public License as published by the*
@@ -24,7 +24,7 @@
 \*============================================================================*/
 
 //CList_________________________________________________________________________
-//(C) 2003-2005,2007-2009 Kevin P. Barry
+//(C) 2003-2005,2007-2010 Kevin P. Barry
 
 //Header Section################################################################
 #ifndef clist___HPP
@@ -2657,8 +2657,10 @@ private:
 
   for (int I = 0; I < SIZE; I++, o_reverse_find()? S1-- : S1++)
   if (list_reference(short_modulo(S1)) == fFind)
+   {
   if (!lList.add_element(short_modulo(short_modulo(S1) - index))) return N;
   else N++;
+   }
 
   return N;
   }
@@ -2723,8 +2725,10 @@ private:
 
   for (int I = 0; I < SIZE; I++, o_reverse_find()? S1-- : S1++)
   if ( EVALUATE_2(fFunction, list_reference(short_modulo(S1)), fFind) )
+   {
   if (!lList.add_element(short_modulo(short_modulo(S1) - index))) return N;
   else N++;
+   }
 
   return N;
   }
@@ -2788,8 +2792,10 @@ private:
 
   for (int I = 0; I < SIZE; I++, o_reverse_find()? S1-- : S1++)
   if ( EVALUATE_1(fFunction, list_reference(short_modulo(S1))) )
+   {
   if (!lList.add_element(short_modulo(S1 - index))) return N;
   else N++;
+   }
 
   return N;
   }
@@ -4756,7 +4762,7 @@ private:
   return pPos;
   }
 
-  template <class Type> template <class Iterator2> Iterator2
+template <class Type> template <class Iterator2> Iterator2
   clist <Type> ::fast_keep(Iterator2 pPos, unsigned int sSize)
   //Keeps elements
   {

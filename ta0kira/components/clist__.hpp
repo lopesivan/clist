@@ -312,7 +312,7 @@ public:
 
     template <class Type2>
         clist
-    &remove_list(clist <Type2>&, int = first, int = last + 1);
+    &remove_list(const clist <Type2>&, int = first, int = last + 1);
     //Remove specified elements
     //List position list, list start position, list stop position
 
@@ -363,7 +363,7 @@ public:
 
     template <class Type2>
         clist
-    &keep_list(clist <Type2>&, int = first, int = last + 1);
+    &keep_list(const clist <Type2>&, int = first, int = last + 1);
     //Keep specified elements
     //List position list, list start position, list stop position
 
@@ -2060,7 +2060,7 @@ private:
   }
 
   template <class Type> template <class Type2> clist <Type>
-  &clist <Type> ::remove_list(clist <Type2> &lList, int sStart, int sStop)
+  &clist <Type> ::remove_list(const clist <Type2> &lList, int sStart, int sStop)
   //Remove specified elements
   {
   //The list of elements to remove is copied, then sorted by position,
@@ -2182,7 +2182,7 @@ private:
   }
 
   template <class Type> template <class Type2> clist <Type>
-  &clist <Type> ::keep_list(clist <Type2> &lList, int sStart, int sStop)
+  &clist <Type> ::keep_list(const clist <Type2> &lList, int sStart, int sStop)
   //Keep specified elements
   {
   //The list of elements to keep is first copied, then sorted by list

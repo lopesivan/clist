@@ -3566,7 +3566,7 @@ private:
   if (index.size() != eEqual.index.size()) return false;
   //using 'list_modulo' on the left forces the index to be taken into account
   for (int I = 0; I < (signed) index.size(); I++)
-    if (!list_reference(list_modulo(I)) == eEqual[I]) return false;
+    if (!(list_reference(list_modulo(I)) == eEqual[I])) return false;
   return true;
   }
 
